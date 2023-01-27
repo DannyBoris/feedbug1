@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+
+  <script defer async>
+    console.log('handle sumbit script')
+    function handleSubmit(e) {
+        e.preventDefault()
+        const formData = new FormData(e.target);
+         const formProps = Object.fromEntries(formData);
+        window.addEmail(formProps.email)
+    }
+    const links = ['Home' , 'Testimonials', 'About', 'Sign_up']
+  </script>
+
+<script  async type="module">
+    console.log('handle google firbase script')
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc  } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDo5_JBnauZ6894Hs4F8qIL93fFN7yLL8c",
+      authDomain: "feedbug-d5a42.firebaseapp.com",
+      projectId: "feedbug-d5a42",
+      storageBucket: "feedbug-d5a42.appspot.com",
+      messagingSenderId: "940321506877",
+      appId: "1:940321506877:web:710ac6492ef1f54fec4c54",
+      measurementId: "G-NZFM3FTX8F"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    console.log(db)
+
+    window.addEmail =  async function addEmail(email){
+        try {
+            const docRef = await addDoc(collection(db, "emails"), {
+            email,
+
+            });
+            console.log("Document written with ID: ", docRef.id);
+            } catch (e) {
+            console.error("Error adding document: ", e);
+}
+    }
+    
+  </script>
+
+  <body>
+    <div class="header">
+      <div class="logo-title">
+        Feedbug
+      </div>
+      <div class="nav">
+        <a href="#home">Home</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#features">Features</a>
+        <button class="signup-button">
+            <a href="#form">Sign up</a>
+        </button>
+      </div>
+    </div>
+    <div id="home" class="banner">
+      <div class="left">
+        <div class="left-title">
+          Manage your Jira project <span class="decorated">directly</span> from
+          your website.
+        </div>
+        <div class="subtitle">
+          Open tickets, record your screen and attach files to your Jira tickets
+          while browsing your own website without losing focus.
+        </div>
+        <div class="form-container">
+          <div class="cta-banner">
+            Start your Jira integration now! <br />
+            (It's easy and 100% free) ​
+          </div>
+          <form  onsubmit="handleSubmit(event)" method="post" >
+            <div>
+              <label for="email">Email</label><input type="email"  name="email" id="email" type="text" />
+            </div>
+            <button type="submit" class="signup-button">Sign up now</button>
+          </form>
+        </div>
+      </div>
+      <div class="right">
+        <img
+          src="https://static.wixstatic.com/media/6fa6ee_eba5ec5b58b8442c83e21fb48daa0c5a~mv2.png/v1/fill/w_807,h_522,al_c,q_90,enc_auto/6fa6ee_eba5ec5b58b8442c83e21fb48daa0c5a~mv2.png"
+        />
+      </div>
+    </div>
+    <div id="testimonials" class="testemonials">
+      <h3 class="happy-client">Some happy clients</h3>
+      <div class="companies-container">
+        <div class="company">
+          <a href="">
+            <img
+              src="https://static.wixstatic.com/media/6fa6ee_4fb490b96cfc40c08f66781681a359e2~mv2.jpg/v1/fill/w_432,h_227,al_c,lg_1,q_80,enc_auto/image%20(1).jpg"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="company">
+          <a>
+            <img
+              src="https://static.wixstatic.com/media/6fa6ee_f33a59aa515f4a74a9b36754ac18f853~mv2.png/v1/fill/w_420,h_90,al_c,lg_1,q_85,enc_auto/image%20(14).png"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="company">
+          <a href="">
+            <img
+              src="https://static.wixstatic.com/media/6fa6ee_197c97be7a664749952dc339de817efe~mv2.png/v1/fill/w_543,h_169,al_c,lg_1,q_85,enc_auto/image__16_-removebg-preview.png"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="middle-title">
+      Feedbug can be used by anyone on the team, no tech knowledge is required.
+    </div>
+    <div id="features" class="features-container">
+      <div class="feature">
+        <img src="./icons/data.svg" />
+        <h3>Enhanced visualization and context</h3>
+        <div>
+          All of your tickets are spreaded around on your actual website.
+          Creating and managing tickets, due dates and assignees easily from you
+          website
+        </div>
+      </div>
+      <div class="feature">
+        <img src="./icons/wrench.svg" />
+        <h3>Full sync with Jira</h3>
+        <div>
+          Our platform allows you to seamlessly integrate all of your Jira
+          information so that you can manage and track bugs, issues and tickets
+          directly from your website.
+        </div>
+      </div>
+      <div class="feature">
+        <img src="./icons/record.svg" />
+        <h3>Record screen support</h3>
+        <div>
+          Record your screen and attach the video attachment to your Jira
+          ticket, providing clear and concise information for your team to
+          better understand and resolve the issue.
+        </div>
+      </div>
+    </div>
+    <div class="sections">
+      <div class="section">
+        <div class="text">
+          <div class="title">Increased your teams productivity</div>
+          <div class="small-text">
+            With Feedbug, teams can quickly identify and report bugs,
+            streamlining the entire process and allowing for faster resolution
+            times.<br /><br />
+            Additionally, with Feedbug, teams no longer have to waste time
+            switching between Jira and their website, resulting in increased
+            productivity and a better user experience.
+            <br /><br />
+            By using Feedbug, enterprise teams can save time, increase
+            efficiency and ultimately deliver better products.
+          </div>
+        </div>
+        <div class="image">
+          <img
+            src="https://static.wixstatic.com/media/6fa6ee_76c45c38c8e94bb79c5a209c0e22fa3f~mv2.png/v1/fill/w_1200,h_678,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/this_is_a_photo.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="section">
+        <div class="text">
+          <div class="title">
+            Simple to use. Just install the Chrome extension and your ready to
+            go!
+          </div>
+          <div class="small-text">
+            Our technology utilizes a chrome extension that seamlessly
+            integrates with your existing website, eliminating the need for a
+            separate platform or external dashboard.
+            <br /><br />
+            Imagine having all the power and capabilities of Jira right at your
+            fingertips, directly on your website.
+            <br /><br />
+            Upgrade your workflow and experience efficiency like never before
+            with our innovative solution.
+          </div>
+        </div>
+        <div class="image">
+          <img
+            src="https://static.wixstatic.com/media/6fa6ee_8c37218989c1405eb5e48d03f532d8c7~mv2.png/v1/fill/w_920,h_739,al_c,q_90,enc_auto/ge.png"
+          />
+        </div>
+      </div>
+    </div>
+    <form id="form" onsubmit="handleSubmit(event)" style="width: 500px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid rgba(200,200,200,.4);
+    border-radius: 6px;">
+      <h3>Sign up now and start tracking bugs like a pro</h3>
+      <h4>(It's easy and 100% free)</h4>
+      <di style="display: flex;flex-direction: column;">
+        <label for="email-1">Email</label>
+        <input type="email" name="email" class="bottom-input" id="email-1" />
+        <button type="submit" class="signup-button">Sign up now</button>
+      </div>
+    </form>
+  </body>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZFM3FTX8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NZFM3FTX8F');
+</script>
+</html>
